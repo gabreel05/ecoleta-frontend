@@ -21,7 +21,7 @@
 
 <div>
   <img src=".github/screenshot-home.png" alt="Home" height="425">
-  <img src=".github/gif-create-point.gif" alt="Create Point" height="425">
+  <img src="https://github.com/gabreel05/ecoleta-frontend/blob/master/.github/git-create-point.gif" alt="Create Point">
 </div>
 
 ## 🧰 Techs
