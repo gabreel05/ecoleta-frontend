@@ -16,7 +16,7 @@
 ## 📜 Features
 
 <ul>
-  <li>Add points of collect</li>
+  <li><b>Add points of collect</b></li>
 </ul>
 
 <div>
