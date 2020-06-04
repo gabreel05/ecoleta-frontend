@@ -1,44 +1,59 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <br>
+    <img src=".github/logo.svg" alt="ecoleta" width="200">
+  <br>
+  Ecoleta Frontend
+</h1>
 
-## Available Scripts
+<p align="center">A project for networking organic and inorganic waste collection points ♻</p>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
 
-### `yarn start`
+## 📜 Features
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<ul>
+  <li>Add points of collect</li>
+</ul>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<div>
+  <img src=".github/screenshot-home.png" alt="Home" height="425">
+  <img src=".github/gif-create-point.gif" alt="Create Point" height="425">
+</div>
 
-### `yarn test`
+## 🧰 Techs
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[//]: # 'Add the features of your project here:'
 
-### `yarn build`
+##### This app features all the latest tools and practices in mobile development!
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 💹 **Node.js** — A JavaScript runtime built on Chrome's V8
+- 💼 **React.js** — An open source JavaScript library focused on creating user interfaces on web pages.
+- 🔷 **Typescript** — A typed superset of JavaScript that compiles to plain JavaScript
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 💻 Getting started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone this repo using <code>https://github.com/gabreel05/ecoleta-frontend.git</code>
+2. Move to the appropiate directory: <code>cd frontend</code>
+3. Run <code>yarn</code> or <code>npm install</code> to install the dependencies
+4. Run <code>yarn start</code> or <code>npm start</code> to start the development server
 
-### `yarn eject`
+## 🤓 How to contribute
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<ul>
+  <li>Fork this repository;</li>
+  <li>Create a branch with your feature: <code>git checkout -b my-feature</code>;</li>
+  <li>Commit your changes: <code>git commit -m 'feat: My new feature'</code>;</li>
+  <li>Push to your branch: <code>git push origin my-feature</code>.</li>
+</ul>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<p>After the merge of your pull request is done, you can delete your branch.</p>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## License
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/licenses/MIT) page for details.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Made with 💜 by <a href="http://github.com/gabreel05">Gabriel Gonçalves</a>
