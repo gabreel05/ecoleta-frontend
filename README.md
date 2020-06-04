@@ -7,11 +7,11 @@
 
 <p align="center">A project for networking organic and inorganic waste collection points ♻</p>
 
-<h5> align="center">
+<p align="center">
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
   </a>
-</h5>
+</p>
 
 ## 📜 Features
 
