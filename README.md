@@ -29,8 +29,6 @@
 
 [//]: # 'Add the features of your project here:'
 
-##### This app features all the latest tools and practices in mobile development!
-
 - 💹 **Node.js** — A JavaScript runtime built on Chrome's V8
 - 💼 **React.js** — An open source JavaScript library focused on creating user interfaces on web pages.
 - 🔷 **Typescript** — A typed superset of JavaScript that compiles to plain JavaScript
