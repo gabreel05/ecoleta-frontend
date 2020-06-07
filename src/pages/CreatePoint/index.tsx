@@ -1,17 +1,15 @@
+import axios from 'axios';
+import { LeafletMouseEvent } from 'leaflet';
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
 import { Map, TileLayer, Marker } from 'react-leaflet';
-import { LeafletMouseEvent } from 'leaflet';
-import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 
+import logo from '../../assets/logo.svg';
 import DropZone from '../../components/DropZone';
-
 import api from '../../services/api';
 
 import './styles.css';
-
-import logo from '../../assets/logo.svg';
 
 interface ItemData {
   id: number;
@@ -57,7 +55,7 @@ const CreatePoint: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    api.get('/items').then((response) => setItems(response.data));
+    api.get('/items').then(response => setItems(response.data));
   }, []);
 
   useEffect(() => {
@@ -65,8 +63,8 @@ const CreatePoint: React.FC = () => {
       .get<IBGEStateResponse[]>(
         'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
       )
-      .then((response) => {
-        const stateInitials = response.data.map((state) => state.sigla);
+      .then(response => {
+        const stateInitials = response.data.map(state => state.sigla);
 
         setStates(stateInitials);
       });
@@ -79,8 +77,8 @@ const CreatePoint: React.FC = () => {
       .get<IBGECityResponse[]>(
         `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`,
       )
-      .then((response) => {
-        const cityNames = response.data.map((city) => city.nome);
+      .then(response => {
+        const cityNames = response.data.map(city => city.nome);
 
         setCities(cityNames);
       });
@@ -88,12 +86,12 @@ const CreatePoint: React.FC = () => {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      position => {
         const { latitude, longitude } = position.coords;
 
         setInitialPosition([latitude, longitude]);
       },
-      (error) => error.message,
+      error => error.message,
     );
   }, []);
 
@@ -120,10 +118,10 @@ const CreatePoint: React.FC = () => {
   }
 
   function handleSelectItem(id: number) {
-    const alreadySelected = selectedItems.findIndex((item) => item === id);
+    const alreadySelected = selectedItems.findIndex(item => item === id);
 
     if (alreadySelected >= 0) {
-      const filteredItems = selectedItems.filter((item) => item !== id);
+      const filteredItems = selectedItems.filter(item => item !== id);
 
       setSelectedItems(filteredItems);
     } else {
@@ -253,7 +251,7 @@ const CreatePoint: React.FC = () => {
                 id="state"
               >
                 <option value="0">Selecione uma UF</option>
-                {states.map((state) => (
+                {states.map(state => (
                   <option key={state} value={state}>
                     {state}
                   </option>
@@ -270,7 +268,7 @@ const CreatePoint: React.FC = () => {
                 id="City"
               >
                 <option value="0">Selecione uma cidade</option>
-                {cities.map((city) => (
+                {cities.map(city => (
                   <option key={city} value={city}>
                     {city}
                   </option>
@@ -287,7 +285,7 @@ const CreatePoint: React.FC = () => {
           </legend>
 
           <ul className="items-grid">
-            {items.map((item) => (
+            {items.map(item => (
               <li
                 key={item.id}
                 onClick={() => handleSelectItem(item.id)}
