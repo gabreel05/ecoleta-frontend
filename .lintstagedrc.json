@@ -1,3 +1,6 @@
 {
-  "src/**/*.{ts,tsx}": ["cross-env CI=true yarn test --bail --findRelatedTests"]
+  "src/**/*.{ts,tsx}": [
+    "eslint --ext ts,tsx --fix",
+    "cross-env CI=true yarn test --bail --findRelatedTests"
+  ]
 }
