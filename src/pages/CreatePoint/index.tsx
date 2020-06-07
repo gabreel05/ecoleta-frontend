@@ -1,8 +1,8 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
-import { Map, TileLayer, Marker } from "react-leaflet";
-import { LeafletMouseEvent } from "leaflet";
+import { Map, TileLayer, Marker } from 'react-leaflet';
+import { LeafletMouseEvent } from 'leaflet';
 import axios from 'axios';
 
 import DropZone from '../../components/DropZone';
@@ -34,30 +34,39 @@ const CreatePoint: React.FC = () => {
   const [states, setStates] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
 
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    whatsapp: ''
+    whatsapp: '',
   });
 
   const [selectedState, setSelectedState] = useState<string>('0');
   const [selectedCity, setSelectedCity] = useState<string>('0');
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const history = useHistory();
 
   useEffect(() => {
-    api.get('/items').then(response => setItems(response.data));
+    api.get('/items').then((response) => setItems(response.data));
   }, []);
 
   useEffect(() => {
-    axios.get<IBGEStateResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
-      .then(response => {
-        const stateInitials = response.data.map(state => state.sigla);
+    axios
+      .get<IBGEStateResponse[]>(
+        'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
+      )
+      .then((response) => {
+        const stateInitials = response.data.map((state) => state.sigla);
 
         setStates(stateInitials);
       });
@@ -66,56 +75,59 @@ const CreatePoint: React.FC = () => {
   useEffect(() => {
     if (selectedState === '0') return;
 
-    axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`)
-      .then(response => {
-        const cityNames = response.data.map(city => city.nome);
+    axios
+      .get<IBGECityResponse[]>(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedState}/municipios`,
+      )
+      .then((response) => {
+        const cityNames = response.data.map((city) => city.nome);
 
         setCities(cityNames);
       });
   }, [selectedState]);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
 
-      setInitialPosition([latitude, longitude]);
-    }, error => error.message);
+        setInitialPosition([latitude, longitude]);
+      },
+      (error) => error.message,
+    );
   }, []);
 
   function handleSelectState(event: ChangeEvent<HTMLSelectElement>) {
-    const state = event.target.value
+    const state = event.target.value;
 
     setSelectedState(state);
   }
 
   function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
-    const city = event.target.value
+    const city = event.target.value;
 
     setSelectedCity(city);
   }
 
   function handleMapClick(event: LeafletMouseEvent) {
-    setSelectedPosition([
-      event.latlng.lat,
-      event.latlng.lng
-    ]);
+    setSelectedPosition([event.latlng.lat, event.latlng.lng]);
   }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
 
-    setFormData({ ...formData, [name]: value});
+    setFormData({ ...formData, [name]: value });
   }
 
   function handleSelectItem(id: number) {
-    const alreadySelected = selectedItems.findIndex(item => item === id);
+    const alreadySelected = selectedItems.findIndex((item) => item === id);
 
     if (alreadySelected >= 0) {
-      const filteredItems = selectedItems.filter(item => item !== id);
+      const filteredItems = selectedItems.filter((item) => item !== id);
 
       setSelectedItems(filteredItems);
     } else {
-      setSelectedItems([ ...selectedItems, id ]);
+      setSelectedItems([...selectedItems, id]);
     }
   }
 
@@ -129,7 +141,7 @@ const CreatePoint: React.FC = () => {
     const items = selectedItems;
 
     const data = new FormData();
-    
+
     data.append('name', name);
     data.append('email', email);
     data.append('whatsapp', whatsapp);
@@ -138,7 +150,7 @@ const CreatePoint: React.FC = () => {
     data.append('latitude', String(latitude));
     data.append('longitude', String(longitude));
     data.append('items', items.join(',').trim());
-    
+
     if (selectedFile) {
       data.append('image', selectedFile);
     }
@@ -150,28 +162,31 @@ const CreatePoint: React.FC = () => {
 
   return (
     <div id="page-create-point">
-      {registerCompleted 
-        ? <div id="register-completed">
-            <FiCheckCircle size={40} color="#00ff00" />
-            <span>Cadastro Concluído!</span>
-            <button type="submit" onClick={() => history.push('/')}>
-              OK
-            </button>
-          </div>
-        : false
-      }
+      {registerCompleted ? (
+        <div id="register-completed">
+          <FiCheckCircle size={40} color="#00ff00" />
+          <span>Cadastro Concluído!</span>
+          <button type="submit" onClick={() => history.push('/')}>
+            OK
+          </button>
+        </div>
+      ) : (
+        false
+      )}
 
       <header>
-        <img src={logo} alt="Ecoleta"/>
+        <img src={logo} alt="Ecoleta" />
 
-        <Link to="/" >
+        <Link to="/">
           <FiArrowLeft />
           Voltar para Home
         </Link>
       </header>
 
       <form onSubmit={handleSubmit}>
-        <h1>Cadastro do <br /> ponto de coleta</h1>
+        <h1>
+          Cadastro do <br /> ponto de coleta
+        </h1>
 
         <DropZone onFileUploaded={setSelectedFile} />
 
@@ -182,18 +197,33 @@ const CreatePoint: React.FC = () => {
 
           <div className="field">
             <label htmlFor="name">Nome da entidade</label>
-            <input type="text" name="name" id="name" onChange={handleInputChange}/>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onChange={handleInputChange}
+            />
           </div>
-          
+
           <div className="field-group">
             <div className="field">
               <label htmlFor="email">E-mail</label>
-              <input type="email" name="email" id="email" onChange={handleInputChange}/>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                onChange={handleInputChange}
+              />
             </div>
 
             <div className="field">
               <label htmlFor="whatsapp">WhatsApp</label>
-              <input type="text" name="whatsapp" id="whatsapp" onChange={handleInputChange}/>
+              <input
+                type="text"
+                name="whatsapp"
+                id="whatsapp"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
         </fieldset>
@@ -204,7 +234,7 @@ const CreatePoint: React.FC = () => {
             <span>Selecione o endereço no mapa</span>
           </legend>
 
-          <Map center={initialPosition} zoom={16} onClick={handleMapClick} >
+          <Map center={initialPosition} zoom={16} onClick={handleMapClick}>
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -216,20 +246,34 @@ const CreatePoint: React.FC = () => {
           <div className="field-group">
             <div className="field">
               <label htmlFor="state">Estado (UF)</label>
-              <select onChange={handleSelectState} value={selectedState} name="state" id="state">
+              <select
+                onChange={handleSelectState}
+                value={selectedState}
+                name="state"
+                id="state"
+              >
                 <option value="0">Selecione uma UF</option>
-                {states.map(state => (
-                  <option key={state} value={state}>{state}</option>
+                {states.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
                 ))}
               </select>
             </div>
-            
+
             <div className="field">
               <label htmlFor="City">Cidade</label>
-              <select onChange={handleSelectCity} value={selectedCity} name="City" id="City">
+              <select
+                onChange={handleSelectCity}
+                value={selectedCity}
+                name="City"
+                id="City"
+              >
                 <option value="0">Selecione uma cidade</option>
-                {cities.map(city => (
-                  <option key={city} value={city}>{city}</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
                 ))}
               </select>
             </div>
@@ -243,23 +287,23 @@ const CreatePoint: React.FC = () => {
           </legend>
 
           <ul className="items-grid">
-            {items.map(item => (
-              <li key={item.id} onClick={() => handleSelectItem(item.id)} className={selectedItems.includes(item.id) ? 'selected' : ''}>
-                <img src={item.image_url} alt={item.name}/>
+            {items.map((item) => (
+              <li
+                key={item.id}
+                onClick={() => handleSelectItem(item.id)}
+                className={selectedItems.includes(item.id) ? 'selected' : ''}
+              >
+                <img src={item.image_url} alt={item.name} />
                 <span>{item.name}</span>
-            </li>
+              </li>
             ))}
-            
           </ul>
-
         </fieldset>
 
-        <button type="submit">
-          Cadastrar ponto de coleta
-        </button>
+        <button type="submit">Cadastrar ponto de coleta</button>
       </form>
     </div>
   );
-}
+};
 
 export default CreatePoint;
